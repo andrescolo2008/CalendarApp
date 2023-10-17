@@ -1,13 +1,18 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { addHours, differenceInSeconds } from "date-fns";
+
+import Swal from "sweetalert2";
+import 'sweetalert2/dist/sweetalert2.min.css'
 
 import Modal from "react-modal"
 
+
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { es } from "date-fns/locale";
+import { es, ms } from "date-fns/locale";
 
 registerLocale('es',es)
+
 
 
 const customStyles = {
@@ -31,6 +36,7 @@ const onCloseModal= ( ) =>{
 }
     
 const [isOpen, setIsOpen] = useState(true)
+const [formSubmited, setformSubmited] = useState(false)
 
 const [formValues, setFormValues] = useState({
     title:'xxxx',
@@ -38,6 +44,16 @@ const [formValues, setFormValues] = useState({
     start: new Date(),
     end: addHours( new Date(),1),
 })
+
+ const titleClass= useMemo (  ()=> {
+if(!formSubmited) return '';
+return (formValues.title.length) > 0
+
+? 'is-valid'
+:'is-invalid'
+
+ },[formValues.title,formSubmited] )
+
 
 const onInPutChange = ({target}) =>{
 setFormValues({
@@ -55,14 +71,21 @@ const onDateChanged = (event,changing)=>{
 
 const onSubmit= (event ) =>{
         event.PreventDefault()
+        
+        setformSubmited(true)
+
         const diference = differenceInSeconds(formValues.end ,formValues.start)
        if (isNaN (diference) || diference <=0){
-        console.log('Error en fechas');
+        Swal.fire('Fechas incorrectas','Revisar las fecahs ingresadas', 'error')
         return;
        }
 
        if (formValues.title.length <=0 ) return; 
         console.log(formValues);
+
+        //TODO:
+        //Remover errores en pantalla
+        // cerrar modal 
         
 }
 
@@ -116,7 +139,7 @@ const onSubmit= (event ) =>{
         <label>Titulo y notas</label>
         <input 
             type="text" 
-            className="form-control"
+            className={`form-control ${titleClass}`}
             placeholder="Título del evento"
             name="title"
             autoComplete="off"
