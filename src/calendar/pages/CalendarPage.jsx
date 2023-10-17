@@ -3,7 +3,7 @@ import { Calendar } from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 import { addHours } from 'date-fns'
-import { CalendarEvent, CalendarModal, NavBar } from '../'
+import { CalendarEvent, CalendarModal, NavBar  } from '../'
 
 import { getMessages, localizer } from '../../helpers'
 
@@ -81,6 +81,14 @@ export const CalendarPage = () => {
     
     />
     
+    <button
+        type="submit"
+        className="btn btn-outline-primary btn-block"
+        
+    >
+        <i className="far fa-save"></i>
+        <span> Guardar</span>
+    </button>
   < CalendarModal />
     </>
   )

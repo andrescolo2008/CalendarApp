@@ -1,6 +1,6 @@
-import { addHours } from "date-fns";
-
 import { useState } from "react";
+import { addHours, differenceInSeconds } from "date-fns";
+
 import Modal from "react-modal"
 
 import DatePicker, { registerLocale } from "react-datepicker";
@@ -53,6 +53,19 @@ const onDateChanged = (event,changing)=>{
     })
 }
 
+const onSubmit= (event ) =>{
+        event.PreventDefault()
+        const diference = differenceInSeconds(formValues.end ,formValues.start)
+       if (isNaN (diference) || diference <=0){
+        console.log('Error en fechas');
+        return;
+       }
+
+       if (formValues.title.length <=0 ) return; 
+        console.log(formValues);
+        
+}
+
   return (
     <Modal
          isOpen={isOpen}
@@ -68,7 +81,7 @@ const onDateChanged = (event,changing)=>{
 <hr />
 <form className="container">
 
-    <div className="form-group mb-2">
+    <div className="form-group mb-2" onSubmit={onSubmit}>
         <label>Fecha y hora inicio</label>
         < DatePicker 
         selected={formValues.start}
@@ -129,6 +142,7 @@ const onDateChanged = (event,changing)=>{
     <button
         type="submit"
         className="btn btn-outline-primary btn-block"
+        
     >
         <i className="far fa-save"></i>
         <span> Guardar</span>
@@ -136,5 +150,7 @@ const onDateChanged = (event,changing)=>{
 
 </form>
     </Modal>
+
+    
   )
 }
