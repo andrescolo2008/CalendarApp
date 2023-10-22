@@ -31,17 +31,12 @@ Modal.setAppElement('#root');
 
 export const CalendarModal = () => {
     
-    const onCloseModal= ( ) =>{
-        
-        console.log('cerrando modal');
-        closeDateModal();
-        
-    }
+   
+    const{isDateModalOpen,closeDateModal}=useUIStore()
     
-    const{activeEvent} =useCalendarStore()
+    const{activeEvent,startSavingEvent} =useCalendarStore()
 // const [isOpen, setIsOpen] = useState(true) ya no se requiere, useUIstore lo reemplazó
 const [formSubmited, setformSubmited] = useState(false)
-const{isDateModalOpen,closeDateModal}=useUIStore()
 
 
 const [formValues, setFormValues] = useState({
@@ -82,8 +77,15 @@ const onDateChanged = (event,changing)=>{
     })
 }
 
-const onSubmit= (event ) =>{
-        event.PreventDefault()
+const onCloseModal= ( ) =>{
+        
+    console.log('cerrando modal');
+    closeDateModal();
+    
+}
+
+const onSubmit= async  (event ) =>{
+        event.preventDefault()
         
         setformSubmited(true)
 
@@ -97,8 +99,11 @@ const onSubmit= (event ) =>{
         console.log(formValues);
 
         //TODO:
+      await  startSavingEvent(formValues)
         //Remover errores en pantalla
         // cerrar modal 
+        closeDateModal()
+        setformSubmited(false)
         
 }
 
@@ -107,7 +112,6 @@ const onSubmit= (event ) =>{
          isOpen={isDateModalOpen}
         onRequestClose={onCloseModal}
         style={customStyles}
-        contentLabel="Example Modal"
         className="modal"
         overlayClassName="modal-fondo"
         closeTimeoutMS={2000}

@@ -27,8 +27,14 @@ onSetActiveEvent :(state, {payload} ) => {
  
  state.activeEvent=payload
     },
+    onAddNewEvent :(state, {payload} ) => {
+        // payload sería la nueva nota
+        // gracias al toolkit de react es posible utilizar el push y mutar el estado 
+      state.events.push(payload)
+      state.activeEvent=null // limpio el evento activo, para crear una nueva nota 
+         },
 }
 });
 
 // Action creators are generated for each case reducer function
-export const { onSetActiveEvent } = calendarSlice.actions;
+export const { onSetActiveEvent ,onAddNewEvent} = calendarSlice.actions;
