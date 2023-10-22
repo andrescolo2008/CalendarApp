@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { addHours, differenceInSeconds } from "date-fns";
 
 import Swal from "sweetalert2";
@@ -10,33 +10,35 @@ import Modal from "react-modal"
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { es, ms } from "date-fns/locale";
-import { useUIStore } from "../../hooks";
+import { useCalendarStore, useUIStore } from "../../hooks";
 
 registerLocale('es',es)
 
 
-
 const customStyles = {
     content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
     },
-  };
-  Modal.setAppElement('#root');
+};
+Modal.setAppElement('#root');
+
+
 
 export const CalendarModal = () => {
-
-const onCloseModal= ( ) =>{
     
-    console.log('cerrando modal');
-    closeDateModal();
+    const onCloseModal= ( ) =>{
+        
+        console.log('cerrando modal');
+        closeDateModal();
+        
+    }
     
-}
-    
+    const{activeEvent} =useCalendarStore()
 // const [isOpen, setIsOpen] = useState(true) ya no se requiere, useUIstore lo reemplazó
 const [formSubmited, setformSubmited] = useState(false)
 const{isDateModalOpen,closeDateModal}=useUIStore()
@@ -49,15 +51,22 @@ const [formValues, setFormValues] = useState({
     end: addHours( new Date(),1),
 })
 
- const titleClass= useMemo (  ()=> {
-if(!formSubmited) return '';
-return (formValues.title.length) > 0
-
-? 'is-valid'
-:'is-invalid'
+         const titleClass= useMemo (  ()=> {
+        if(!formSubmited) return '';
+        return (formValues.title.length) > 0
+        
+        ? 'is-valid'
+        :'is-invalid'
 
  },[formValues.title,formSubmited] )
 
+ useEffect(() => {
+   if(activeEvent !== null){
+    setFormValues({...activeEvent})
+   }
+ 
+ }, [activeEvent])
+ 
 
 const onInPutChange = ({target}) =>{
 setFormValues({
