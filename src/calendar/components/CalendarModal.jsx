@@ -10,6 +10,7 @@ import Modal from "react-modal"
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { es, ms } from "date-fns/locale";
+import { useUIStore } from "../../hooks";
 
 registerLocale('es',es)
 
@@ -32,11 +33,14 @@ export const CalendarModal = () => {
 const onCloseModal= ( ) =>{
     
     console.log('cerrando modal');
-    setIsOpen(false)
+    closeDateModal();
+    
 }
     
-const [isOpen, setIsOpen] = useState(true)
+// const [isOpen, setIsOpen] = useState(true) ya no se requiere, useUIstore lo reemplazó
 const [formSubmited, setformSubmited] = useState(false)
+const{isDateModalOpen,closeDateModal}=useUIStore()
+
 
 const [formValues, setFormValues] = useState({
     title:'xxxx',
@@ -91,7 +95,7 @@ const onSubmit= (event ) =>{
 
   return (
     <Modal
-         isOpen={isOpen}
+         isOpen={isDateModalOpen}
         onRequestClose={onCloseModal}
         style={customStyles}
         contentLabel="Example Modal"
