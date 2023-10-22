@@ -40,6 +40,17 @@
   padding: 10px;
 }
 
+/* FAB */
+
+.fab{
+  border-radius: 100%;
+  bottom: 25px;
+  font-size: 30px;
+  padding: 25px;
+  position: fixed;
+  right: 25px;
+}
+
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
