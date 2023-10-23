@@ -119,9 +119,9 @@ const onSubmit= async  (event ) =>{
 
 <h1> Nuevo evento </h1>
 <hr />
-<form className="container">
+<form className="container" onSubmit={onSubmit}>
 
-    <div className="form-group mb-2" onSubmit={onSubmit}>
+    <div className="form-group mb-2" >
         <label>Fecha y hora inicio</label>
         < DatePicker 
         selected={formValues.start}

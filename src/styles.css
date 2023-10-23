@@ -51,6 +51,16 @@
   right: 25px;
 }
 
+.fab-danger{
+  border-radius: 100%;
+  bottom: 25px;
+  font-size: 30px;
+  position: fixed;
+  left: 25px;
+  height: 70 px;
+  width: 70 px;
+}
+
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
