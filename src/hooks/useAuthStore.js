@@ -42,12 +42,29 @@ import { clearErrorMessage, onChecking, onLogin, onLogout } from "../store/auth/
         }
    
         }
+
+              const checkAuthToken = async ( ) =>{
+                const token= localStorage.getItem('token');
+                if(!token) return dispatch(onLogout())
+                try {
+            
+                    const {data} =await calendarApi.post('/auth/renew')
+                        localStorage.setItem('token',data.token);                
+                        localStorage.setItem('token-init-date',new Date().getTime());
+                        dispatch( onLogin({name: data.name, uid: data.uid} ))                
+        
+                } catch (error) {
+                    localStorage.clear();
+                    return dispatch(onLogout())                    
+                }
+            }
+
         return{
             //* Propiedades
                 status,user,errorMessage,
             //*Métodos
             startLogin,
-            startRegister
-    
+            startRegister,
+            checkAuthToken
                     }
 }
