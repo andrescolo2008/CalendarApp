@@ -8,7 +8,7 @@ import { useEffect } from 'react'
 export const AppRouter = () => {
 
     const {status,checkAuthToken}= useAuthStore();
-    // const authStatus= 'authenticated'; // 'authenticated' // 'not-authenticated'//'checking
+    // const authStatus= 'not-authenticated'; // 'authenticated' // 'not-authenticated'//'checking
   
     useEffect(() => {
       checkAuthToken()

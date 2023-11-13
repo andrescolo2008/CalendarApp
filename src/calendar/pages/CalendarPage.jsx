@@ -15,7 +15,7 @@ export const CalendarPage = () => {
   const {events,setActiveEvent} =useCalendarStore()
 
 
-  const [lastView, setLastView] = useState(localStorage.getItem('lastView' || 'week'))
+  const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'week')
 
   const eventStyleGetter= (event,start,end,isSelected) => {
 
@@ -49,7 +49,7 @@ export const CalendarPage = () => {
   const onViewChanged =(event) =>{
     // console.log({viewChanged: event});
     localStorage.setItem('lastView',event)
-
+    setLastView(event)
   }
 
   return (
