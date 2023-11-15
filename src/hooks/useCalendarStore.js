@@ -26,12 +26,16 @@ export const useCalendarStore = () => {
                 await calendarApi.put(`/events/update${calendarEvent.id}`, calendarEvent)
 
                 dispatch(onUpdateEvent({...calendarEvent,user}) )
+                Swal.fire('Nota actualziada','se actualizó la nota','success')
+
                 return
             }
             else{
                 //Creando
                 const {data}=await calendarApi.post('/events/new',calendarEvent)
                 dispatch(onAddNewEvent({...calendarEvent,id:data.evento.id ,user} ) )
+                Swal.fire(' Nueva nota guarda' ,'se creó una nueva nota','success')
+
             }
 
         } catch (error) {
@@ -45,8 +49,17 @@ export const useCalendarStore = () => {
     }
 
       const startDeletingEvent = async ( ) =>{
-        //TODO debe lleagar al backend
+        //borrar
+        try {
+            await calendarApi.delete(`/events/delete${activeEvent.id}`)
+           
             dispatch(onDeleteEvent())
+            Swal.fire('Nota eliminada','eliminó nota','success')
+            
+        } catch (error) {
+            console.log('error al eliminar el evento');
+            Swal.fire('Error al eliminar la nota ',error.response.data.msg,'error')
+        }
     }
 
 
