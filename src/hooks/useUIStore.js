@@ -21,8 +21,8 @@ import { onCloseDateModal, onOpenDateModal } from "../store"
 
   const toggleDateModal= ( ) =>{
     (isDateModalOpen)
-    ? openDateModal()
-    :closeDateModal();
+    ? closeDateModal()
+    :openDateModal()
 }
 
     return {
