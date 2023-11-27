@@ -20,7 +20,7 @@ import { onLogoutCalendar } from "../store/calendar/calendarSlice"
             dispatch (onLogout('Credenciales incorrectas'));
             setTimeout(() => {
                 dispatch(clearErrorMessage())
-            }, 3000);
+            }, 10);
         }
 
             
@@ -39,7 +39,7 @@ import { onLogoutCalendar } from "../store/calendar/calendarSlice"
             dispatch (onLogout(error.response.data?.msg || 'no se puede registrar usuario, veirficar si correo  ya existe'));
             setTimeout(() => {
                 dispatch(clearErrorMessage())
-            }, 3000);
+            }, 10);
         }
    
         }
