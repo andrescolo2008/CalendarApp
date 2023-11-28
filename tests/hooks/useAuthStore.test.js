@@ -62,22 +62,12 @@ test('debe deregresar los valores por defecto', () => {
 })
 
 
-
-
 const {errorMessage,status,user}= result.current;
 
 expect({ errorMessage,status,user}).toEqual({
-
-    // status:'authenticated',// 'authenticated','not-authenticated',//'checking
-    // user: {name:'test-user',uid:'655b82b62915821b7ffb82e8'},
-    // errorMessage:undefined
-    
-    status:'not-authenticated',// 'authenticated','not-authenticated',//'checking
-    user: {},
-    errorMessage:
-    //undefined 
-    "Credenciales incorrectas"
-
+    errorMessage: undefined,
+    status: 'authenticated',
+    user: { name: 'test-user', uid: '65660253a621c156b0829184' }
              })
 
              expect(localStorage.getItem('token') ).toEqual(expect.any(String) );
@@ -112,6 +102,9 @@ expect({ errorMessage,status,user}).toEqual({
                     ()=> expect(result.current.errorMessage).toBe(undefined)
               );
          })
+
+
+         
 
          test('startRegister debe de crear un usuario ', async() => { 
 
@@ -168,9 +161,9 @@ expect({ errorMessage,status,user}).toEqual({
                           const {errorMessage,status,user}= result.current;
 
                         expect({errorMessage,status,user}).toEqual({
-                            errorMessage: 'no se puede registrar usuario, veirficar si correo  ya existe',
+                            errorMessage: 'un usuario ya existe con ese correo',
                             status: 'not-authenticated',
-                            user: { }
+                            user: {}
                         })
                         
     

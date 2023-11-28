@@ -11,6 +11,7 @@ import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { es, ms } from "date-fns/locale";
 import { useCalendarStore, useUIStore } from "../../hooks";
+import { getEnvVaraibles } from "../../helpers";
 
 registerLocale('es',es)
 
@@ -25,7 +26,10 @@ const customStyles = {
         transform: 'translate(-50%, -50%)',
     },
 };
-Modal.setAppElement('#root');
+if(getEnvVaraibles().VITE_MODE !== 'test'){
+    
+    Modal.setAppElement('#root');
+}
 
 
 
